@@ -1,0 +1,27 @@
+name: frr01
+
+topology:
+  nodes:
+    router1:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - router1/daemons:/etc/frr/daemons
+        - router1/frr.conf:/etc/frr/frr.conf
+    router2:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - router2/daemons:/etc/frr/daemons
+        - router2/frr.conf:/etc/frr/frr.conf
+    router3:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - router3/daemons:/etc/frr/daemons
+        - router3/frr.conf:/etc/frr/frr.conf
+
+  links:
+    - endpoints: ["router1:eth1", "router2:eth1"]
+    - endpoints: ["router1:eth2", "router3:eth1"]
+    - endpoints: ["router2:eth2", "router3:eth2"]
