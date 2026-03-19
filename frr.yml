@@ -1,27 +1,42 @@
-name: frr01
+name: frr
 
 topology:
   nodes:
-    router1:
+    frr1:
       kind: linux
-      image: frrouting/frr:latest
+      image: quay.io/frrouting/frr:10.5.3
       binds:
-        - router1/daemons:/etc/frr/daemons
-        - router1/frr.conf:/etc/frr/frr.conf
-    router2:
+        - frr1/daemons:/etc/frr/daemons
+        - frr1/frr.conf:/etc/frr/frr.conf
+    frr2:
       kind: linux
-      image: frrouting/frr:latest
+      image: quay.io/frrouting/frr:10.5.3
       binds:
-        - router2/daemons:/etc/frr/daemons
-        - router2/frr.conf:/etc/frr/frr.conf
-    router3:
+        - frr2/daemons:/etc/frr/daemons
+        - frr2/frr.conf:/etc/frr/frr.conf
+    frr3:
       kind: linux
-      image: frrouting/frr:latest
+      image: quay.io/frrouting/frr:10.5.3
       binds:
-        - router3/daemons:/etc/frr/daemons
-        - router3/frr.conf:/etc/frr/frr.conf
+        - frr3/daemons:/etc/frr/daemons
+        - frr3/frr.conf:/etc/frr/frr.conf
+    pc1:
+      kind: linux
+      image: pc:1.0
+      binds:
+       - pc1/cmd.sh:/cmd.sh
+      exec:
+       - sh /cmd.sh
+    pc2:
+      kind: linux
+      image: pc:1.0
+      binds:
+       - pc2/cmd.sh:/cmd.sh
+      exec:
+       - sh /cmd.sh
 
   links:
-    - endpoints: ["router1:eth1", "router2:eth1"]
-    - endpoints: ["router1:eth2", "router3:eth1"]
-    - endpoints: ["router2:eth2", "router3:eth2"]
+    - endpoints: ["pc1:eth1", "frr1:eth1"]
+    - endpoints: ["frr1:eth2", "frr2:eth1"]
+    - endpoints: ["frr2:eth2", "frr3:eth2"]
+    - endpoints: ["frr3:eth1", "pc2:eth1"]
