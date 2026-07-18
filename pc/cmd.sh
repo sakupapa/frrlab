@@ -1,3 +1,0 @@
-#!/bin/bash
-
-ip link set dev eth0 down
