@@ -1,0 +1,26 @@
+---
+frr1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.3
+frr2:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.4
+frr3:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.2
+pc1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.5
+pc2:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.6

@@ -2,41 +2,67 @@ name: frr
 
 topology:
   nodes:
-    frr1:
+    homer:
       kind: linux
-      image: quay.io/frrouting/frr:10.5.3
+      image: frrouting/frr:latest
       binds:
-        - frr1/daemons:/etc/frr/daemons
-        - frr1/frr.conf:/etc/frr/frr.conf
-    frr2:
+        - homer/daemons:/etc/frr/daemons
+        - homer/frr.conf:/etc/frr/frr.conf
+    pe1:
       kind: linux
-      image: quay.io/frrouting/frr:10.5.3
+      image: frrouting/frr:latest
       binds:
-        - frr2/daemons:/etc/frr/daemons
-        - frr2/frr.conf:/etc/frr/frr.conf
-    frr3:
+        - pe1/daemons:/etc/frr/daemons
+        - pe1/frr.conf:/etc/frr/frr.conf
+    p:
       kind: linux
-      image: quay.io/frrouting/frr:10.5.3
+      image: frrouting/frr:latest
       binds:
-        - frr3/daemons:/etc/frr/daemons
-        - frr3/frr.conf:/etc/frr/frr.conf
-    pc1:
+        - p/daemons:/etc/frr/daemons
+        - p/frr.conf:/etc/frr/frr.conf
+    pe2:
       kind: linux
-      image: pc:1.0
+      image: frrouting/frr:latest
       binds:
-       - pc1/cmd.sh:/cmd.sh
+        - pe2/daemons:/etc/frr/daemons
+        - pe2/frr.conf:/etc/frr/frr.conf
+    ix:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - ix/daemons:/etc/frr/daemons
+        - ix/frr.conf:/etc/frr/frr.conf
+    pc:
+      kind: linux
+      image: chrome_vnc:latest
+      ports:
+        - "5900:5900"
       exec:
-       - sh /cmd.sh
-    pc2:
+        - ip link set dev eth0 down 
+    www:
       kind: linux
-      image: pc:1.0
-      binds:
-       - pc2/cmd.sh:/cmd.sh
+      image: nginx:1.0
+      ports:
+        - "8080:80"
       exec:
-       - sh /cmd.sh
-
+        - ip link set dev eth0 down 
+        - ip addr add 1.0.0.1/24 dev eth1
+        - ip route add default via 1.0.0.254
+    dns:
+      kind: linux
+      image: coredns/coredns:latest
+      binds:
+        - ./Corefile:/Corefile
+      cmd: "-conf /Corefile"
+      exec:
+        - ip link set dev eth0 down 
+        - ip addr add 100.0.0.1/24 dev eth1
+        - ip route add default via 100.0.0.254
   links:
-    - endpoints: ["pc1:eth1", "frr1:eth1"]
-    - endpoints: ["frr1:eth2", "frr2:eth1"]
-    - endpoints: ["frr2:eth2", "frr3:eth2"]
-    - endpoints: ["frr3:eth1", "pc2:eth1"]
+    - endpoints: ["pc:eth1", "homer:eth1"]
+    - endpoints: ["homer:eth2", "pe1:eth1"]
+    - endpoints: ["pe1:eth2", "p:eth1"]
+    - endpoints: ["p:eth2", "pe2:p1"]
+    - endpoints: ["pe:eth2", "ix:eth1"]
+    - endpoints: ["ix:eth2", "www:eth1"]
+    - endpoints: ["ix:eth3", "dns:eth1"]
