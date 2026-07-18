@@ -44,10 +44,6 @@ topology:
       image: nginx:1.0
       ports:
         - "8080:80"
-      exec:
-        - ip link set dev eth0 down 
-        - ip addr add 1.0.0.1/24 dev eth1
-        - ip route add default via 1.0.0.254
     dns:
       kind: linux
       image: coredns/coredns:latest
@@ -63,6 +59,6 @@ topology:
     - endpoints: ["homer:eth2", "pe1:eth1"]
     - endpoints: ["pe1:eth2", "p:eth1"]
     - endpoints: ["p:eth2", "pe2:p1"]
-    - endpoints: ["pe:eth2", "ix:eth1"]
+    - endpoints: ["pe2:eth2", "ix:eth1"]
     - endpoints: ["ix:eth2", "www:eth1"]
     - endpoints: ["ix:eth3", "dns:eth1"]
