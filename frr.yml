@@ -58,6 +58,6 @@ topology:
     - endpoints: ["pc:eth1", "homer:eth1"]
     - endpoints: ["homer:eth2", "pe1:eth1"]
     - endpoints: ["pe1:eth2", "p:eth1"]
-    - endpoints: ["p:eth2", "pe2:p1"]
+    - endpoints: ["p:eth2", "pe2:eth1"]
     - endpoints: ["pe2:eth2", "ix:eth1"]
     - endpoints: ["ix:eth2", "www:eth1"]
