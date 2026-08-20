@@ -34,26 +34,26 @@ topology:
         - ix/frr.conf:/etc/frr/frr.conf
     pc:
       kind: linux
-      image: chrome:1.0
+      image: vnc-desktop:bookworm
+      image-pull-policy: Never
       ports:
-        - "5900:5900"
+        - 5900:5900/tcp
+      env:
+        VNC_PASSWORD: "cisco123"
+        VNC_GEOMETRY: "1440x900"
+        VNC_DEPTH: "24"
       exec:
-        - ip link set dev eth0 down 
+        - ip link set eth1 up
+        - ip addr add 192.168.1.1/24 dev eth1
+        - ip route add 1.0.0.0/24 via 192.168.1.254
+        - ip route add 100.0.0.0/8 via 192.168.1.254
     www:
       kind: linux
       image: nginx:1.0
-      ports:
-        - "8080:80"
-    dns:
-      kind: linux
-      image: coredns/coredns:latest
-      binds:
-        - ./Corefile:/Corefile
-      cmd: "-conf /Corefile"
       exec:
-        - ip link set dev eth0 down 
-        - ip addr add 100.0.0.1/24 dev eth1
-        - ip route add default via 100.0.0.254
+        - ip link set eth1 up
+        - ip addr add 1.0.0.1/24 dev eth1
+        - ip route add 100.0.0.0/8 via 1.0.0.254
   links:
     - endpoints: ["pc:eth1", "homer:eth1"]
     - endpoints: ["homer:eth2", "pe1:eth1"]
@@ -61,4 +61,3 @@ topology:
     - endpoints: ["p:eth2", "pe2:p1"]
     - endpoints: ["pe2:eth2", "ix:eth1"]
     - endpoints: ["ix:eth2", "www:eth1"]
-    - endpoints: ["ix:eth3", "dns:eth1"]
