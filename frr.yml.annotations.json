@@ -1,6 +1,24 @@
 {
   "freeTextAnnotations": [],
-  "freeShapeAnnotations": [],
+  "freeShapeAnnotations": [
+    {
+      "id": "freeShape_1787256877227",
+      "shapeType": "rectangle",
+      "position": {
+        "x": 90.91457253781961,
+        "y": 360.0281403810968
+      },
+      "width": 484,
+      "height": 115,
+      "fillColor": "rgba(127, 127, 127, 0.16)",
+      "fillOpacity": 0.2,
+      "borderColor": "#bbbebf",
+      "borderWidth": 1,
+      "borderStyle": "solid",
+      "rotation": 0,
+      "zIndex": -1
+    }
+  ],
   "trafficRateAnnotations": [],
   "groupStyleAnnotations": [],
   "networkNodeAnnotations": [],
@@ -39,6 +57,66 @@
         "x": 620,
         "y": 360
       }
+    },
+    {
+      "id": "homer",
+      "position": {
+        "x": -80,
+        "y": 400
+      },
+      "icon": "rgw"
+    },
+    {
+      "id": "pe1",
+      "position": {
+        "x": 120,
+        "y": 400
+      }
+    },
+    {
+      "id": "p",
+      "position": {
+        "x": 300,
+        "y": 400
+      }
+    },
+    {
+      "id": "pe2",
+      "position": {
+        "x": 480,
+        "y": 400
+      }
+    },
+    {
+      "id": "ix",
+      "position": {
+        "x": 700,
+        "y": 400
+      }
+    },
+    {
+      "id": "pc",
+      "position": {
+        "x": -240,
+        "y": 400
+      },
+      "icon": "client"
+    },
+    {
+      "id": "www",
+      "position": {
+        "x": 860,
+        "y": 400
+      },
+      "icon": "server"
+    },
+    {
+      "id": "dns",
+      "position": {
+        "x": 700,
+        "y": 240
+      },
+      "icon": "server"
     }
   ],
   "edgeAnnotations": [],
