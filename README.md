@@ -11,3 +11,11 @@
 
 # Network Diagram
 ![frr-lab drawio](images/frr.drawio.png)
+
+
+# How to access PC desktop by vnc
+
+```
+gh codespace list
+gh codespace ports forward 5900:5900 -c "codespace name"
+```
