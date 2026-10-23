@@ -10,4 +10,4 @@
 
 
 # Network Diagram
-![frr-lab drawio](https://github.com/user-attachments/assets/06d7bea2-c5a0-4ca5-96b2-7a81ff5b270)
+![frr-lab drawio](images/frr.drawio.png)
